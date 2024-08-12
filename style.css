@@ -1,0 +1,50 @@
+#game-board {
+    max-width: 70%;
+    margin: 0 auto;
+}
+
+.card {
+    width: 20%;
+    height: 170px;
+    margin: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fe94ec;
+    border-radius: 10px;
+    transition: transform 0.3s;
+    background-image: url('logo.png');
+    background-size: cover;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    visibility: hidden;
+}
+
+.card.flipped {
+    background-color: white;
+    background-image: none;
+    transform: rotateY(180deg);
+}
+
+.card.flipped img {
+    visibility: visible;
+}
+
+.card.matched {
+    background-color: #28a745;
+}
+
+#restart-btn {
+    background-color: #fe94ec;
+}
+#timer {
+    width: 120px;
+    border: 2px solid  #fe94ec;
+    margin: 10px 0;
+    border-radius: 5px;
+    padding: 5px;
+}
