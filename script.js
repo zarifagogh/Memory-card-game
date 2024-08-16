@@ -16,11 +16,13 @@ const cardsArray = [
     { id: 15, imgSrc: 'image7.png' },
     { id: 16, imgSrc: 'image8.png' }
 ];
+
 let timer;
 let timeLeft = 30;
+let score = 0;
 let firstCard = null;
 let secondCard = null;
-let lockBoard = false; // iki kart muqayise olunarken ucuncunu kenarda saxlamaq
+let lockBoard = false;/// iki kart muqayise olunarker ucuncunu kenarda saxlamaq ucun 
 let matchedPairs = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -31,14 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
 function startGame() {
     shuffleCards();
     createBoard();
-    showAllCards(); // 3 saniyelik kartlari usere gosterir
+    showAllCards();
 }
-/// burda kartlari qarisdiririq
-// sort arrayin elementlerini deyisdirir
+
 function shuffleCards() {
     cardsArray.sort(() => 0.5 - Math.random());
 }
-// bu htmlde kartlari yaratmaq hissesi kimidir her defe srclari cardlara yerlesdirib sonra containere qoyur
+
 function createBoard() {
     const gameBoard = document.getElementById('game-board');
     gameBoard.innerHTML = '';
@@ -52,7 +53,7 @@ function createBoard() {
         gameBoard.appendChild(cardElement);
     });
 }
-// 3 saniyelik kartlari gosterir
+
 function showAllCards() {
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => card.classList.add('flipped'));
@@ -61,7 +62,7 @@ function showAllCards() {
         startTimer();
     }, 3000);
 }
-// kartlari ceviririk
+
 function flipCard() {
     if (lockBoard) return;
     const clickedCard = this;
@@ -78,7 +79,7 @@ function flipCard() {
     secondCard = clickedCard;
     checkForMatch();
 }
-// eyniliyi yoxlayir
+
 function checkForMatch() {
     const isMatch = firstCard.dataset.imgSrc === secondCard.dataset.imgSrc;
     isMatch ? disableCards() : unflipCards();
@@ -88,6 +89,8 @@ function disableCards() {
     firstCard.classList.add('matched');
     secondCard.classList.add('matched');
     matchedPairs++;
+    score += 10;
+    updateScoreDisplay();
 
     if (matchedPairs === cardsArray.length / 2) {
         endGame('Congratulations! You matched all the cards!');
@@ -124,7 +127,19 @@ function startTimer() {
 }
 
 function updateTimerDisplay() {
-    document.getElementById('timer').innerText = `Time left: ${timeLeft}s`;
+    const timerElement = document.getElementById('timer');
+    timerElement.innerText = `Time left: ${timeLeft}s`;
+
+
+    if (timeLeft <= 10) {
+        timerElement.style.color = 'red';
+    } else {
+        timerElement.style.color = '#555';
+    }
+}
+
+function updateScoreDisplay() {
+    document.getElementById('score').innerText = `Score: ${score}`;
 }
 
 function endGame(message) {
@@ -132,12 +147,32 @@ function endGame(message) {
     alert(message);
     document.querySelectorAll('.card').forEach(card => card.removeEventListener('click', flipCard));
 }
-// herseyi sifirlayir
+
 function restartGame() {
     clearInterval(timer);
     firstCard = null;
     secondCard = null;
     lockBoard = false;
     matchedPairs = 0;
+    score = 0;
+    updateScoreDisplay();
     startGame();
 }
+
+
+function endGame(message) {
+    clearInterval(timer);
+    document.querySelectorAll('.card').forEach(card => card.removeEventListener('click', flipCard));
+
+    const gameOverMessage = document.getElementById('gameOverMessage');
+    gameOverMessage.innerText = message;
+    const gameOverModal = new bootstrap.Modal(document.getElementById('gameOverModal'));
+    gameOverModal.show();
+}
+// modaldaki button ucun
+document.getElementById('playAgainBtn').addEventListener('click', () => {
+    const gameOverModal = bootstrap.Modal.getInstance(document.getElementById('gameOverModal'));
+    gameOverModal.hide();
+    restartGame();
+});
+

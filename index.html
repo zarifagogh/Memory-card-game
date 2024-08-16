@@ -6,6 +6,8 @@
     <title>Memory Card Game</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
 </head>
 <body>
     <div class="container">
@@ -13,11 +15,53 @@
         <div class="mt-4">
             <button id="restart-btn" class="btn">Restart Game</button>
         </div>
+        <div id="score" class="mb-4">Score: 0</div>
         <div id="game-board" class="row justify-content-center">
         </div>
-        
+        <img src="./image1.png" alt="" class="design-img" style="top: 120px ; left:120px ">
+        <img src="./image2.png" alt="" class="design-img" style="top: 50px; right:100px ">
+        <img src="./image3.png" alt="" class="design-img" style="top:250px ; left:-40px ">
+        <img src="./image4.png" alt="" class="design-img" style="bottom: 30px; left: 50px">
+        <img src="./image5.png" alt="" class="design-img" style="bottom: 300px; left: 150px">
+        <img src="./image6.png" alt="" class="design-img" style="bottom: 100px; right:50px ">
+        <img src="./image7.png" alt="" class="design-img" style="top:300px ; right: 140px">
+        <img src="./image8.png" alt="" class="design-img" style="bottom:10px ; right: 200px">
+        <img src="./image9.png" alt="" class="design-img" style="bottom:120px ; left: 180px">
+        <img src="./image10.png" alt="" class="design-img" style="bottom:340px ; right: -40px">
     </div>
-
+    <!-- Simple Game Over Modal -->
+    <div class="modal fade" id="gameOverModal" tabindex="-1" aria-labelledby="gameOverModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content" >
+            <div class="modal-header">
+              <h2 class="modal-title" id="gameOverModalLabel" >Game Over</h2>
+            </div>
+            <div class="modal-body" >
+              <p id="gameOverMessage">Time's up! Game over.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="button button--piyo " id="playAgainBtn">
+                    <div class="button__wrapper">
+                        <span class="button__text">Play again</span>
+                    </div>
+                    <div class="characterBox">
+                        <div class="character wakeup">
+                            <div class="character__face"></div>
+                        </div>
+                        <div class="character wakeup">
+                            <div class="character__face"></div>
+                        </div>
+                        <div class="character">
+                            <div class="character__face"></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
